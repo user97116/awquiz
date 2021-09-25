@@ -1,9 +1,14 @@
+import 'package:awquiz/controllers/quiz_controller.dart';
+import 'package:awquiz/models/quiz_category.dart';
 import 'package:awquiz/pages/home/quiz_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 
 class QuizCategoryCard extends StatelessWidget {
   final image;
-  const QuizCategoryCard({
+  final QuizCategory category;
+  const QuizCategoryCard(
+    this.category, {
     Key? key,
     required this.image,
   }) : super(key: key);
@@ -12,6 +17,7 @@ class QuizCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Get.find<QuizController>().loadQuestions(category);
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (_, anim, anim2) => FadeTransition(
@@ -55,7 +61,7 @@ class QuizCategoryCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Quiz category",
+                        category.name!,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -71,7 +77,7 @@ class QuizCategoryCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 4.0),
                         child: Text(
-                          "Easy",
+                          category.difficulity!,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

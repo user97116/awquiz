@@ -1,6 +1,8 @@
+import 'package:awquiz/controllers/quiz_controller.dart';
 import 'package:awquiz/pages/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home/quiz_category_card.dart';
 import 'home/quiz_search.dart';
@@ -32,17 +34,21 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   QuizSearchView(),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal:16),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
-                      itemBuilder: (_, index) => QuizCategoryCard(
-                        image: quizImages[index % (quizImages.length)],
+                  Obx(() {
+                    var categories = Get.find<QuizController>().categories;
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: categories.length,
+                        itemBuilder: (_, index) => QuizCategoryCard(
+                          categories[index],
+                          image: quizImages[index % (quizImages.length)],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
             ),

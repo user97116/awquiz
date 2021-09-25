@@ -1,3 +1,4 @@
+import 'package:awquiz/di.dart';
 import 'package:awquiz/pages/home.dart';
 import 'package:awquiz/pages/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 
 void main() {
+  configure();
   runApp(const MyApp());
 }
 
